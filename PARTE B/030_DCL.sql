@@ -23,5 +23,10 @@ CREATE ROLE Ventas;
 
 GRANT SELECT, INSERT ON Sales.SalesOrderHeader TO Ventas;
 
-EXEC sp_addrolemember 'Ventas', 'Manuel'; -- El usuario debe existir
+EXEC sp_addrolemember 'Ventas', Manuel; -- El usuario debe existir
 
+--Ahora voy a revocar los anteriores permisos al rol creado (SELECT, INSERT, UPDATE, DELETE, EXECUTE)
+REVOKE SELECT, INSERT ON Sales.SalesOrderHeader FROM Ventas;
+
+--Añadir permisos al usuario Manuel para ejecutar un procedimiento almacenado (Están ya creados en AdventureWorks2022 "Programmability/Stored Procedures").
+GRANT EXECUTE ON dbo.uspGetEmployeeManagers TO Manuel
