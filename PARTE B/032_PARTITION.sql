@@ -1,20 +1,20 @@
 /*
 Lo primero es entender que es el particionado de tablas. 
-El particionado de tablas es una técnica en SQL que permite dividir una tabla grande en partes más pequeñas (particiones), sin que el usuario note la diferencia al consultar datos.
+El particionado de tablas permite dividir una tabla grande en partes más pequeñas (particiones), sin que el usuario note la diferencia al consultar datos.
 Se usa principalmente para mejorar el rendimiento y hacer más fácil la administración de bases de datos con muchos registros.
 
-Los objetivos del particionado incluyen, consultas más rápidas, mejor administración, más eficiencia.
+Los objetivos del particionado incluyen, consultas más rápidas, mejor administración y más eficiencia.
 
 Para su definición primero tenemos que definir el esquema de particion.
-Haciendo uso del ejemplo anterior vamos a particionar la tabla GameReleases de acuerdo a la fecha de lanzamiento de los juegos. Esto es así porque
-normalmente los lanzamientos más antiguos se consultan menos frecuentemente.
+Haciendo uso del ejemplo anterior vamos a particionar la tabla GameReleases de acuerdo a la fecha de lanzamiento de los juegos. 
+Normalmente los lanzamientos más antiguos se suelen consultar menos.
 */
 
--- Primero, creamos la función de partición. Ésta utilizará la columna ReleaseDate y así creará particiones para los años 2020, 2021, 2022 y 2023
+-- Primero, creamos la función de partición. Ésta utilizará la columna ReleaseDate. Crearemos particiones para los años 2020, 2021, 2022 y 2023
 CREATE PARTITION FUNCTION ReleaseYearPartitionFunction (DATE)
 AS RANGE RIGHT FOR VALUES ('2020-01-01', '2021-01-01', '2022-01-01', '2023-01-01');
 
---Segundo, creamos el esquema de partición, asignando las particiones a un almacenamiento específico. (PRIMARY)
+--Segundo, creamos el esquema de partición. Así asignamos las particiones a un almacenamiento específico. (PRIMARY) *Pendiente más información por parte de Pedro
 
 CREATE PARTITION SCHEME ReleaseYearPartitionScheme
 AS PARTITION ReleaseYearPartitionFunction
